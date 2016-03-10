@@ -28,7 +28,15 @@ class BackwardsTranslator {
 			} else {
 				index++
 				
-				let byteRepresentation = Array (bytesArray [index..<index + sizeof(Value)])
+				let startIndex	= index
+				let endIndex	= startIndex + sizeof (Value)
+				
+				guard endIndex < bytesArray.count
+					else {
+						throw TranslatorError.InvalidData
+				}
+				
+				let byteRepresentation = Array (bytesArray [startIndex..<endIndex])
 				parseValueFromBytesAndAddToOutput (byteRepresentation)
 				
 				index += sizeof (Value)

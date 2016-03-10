@@ -71,7 +71,39 @@ class Interface {
 		}
 	}
 	
-	class func parseRunFileBackwards (filename: String) {
+	class func parseRunFromFile (filename: String) {
+		
+		let interface = sharedInstance
+		
+		var output: [Byte] = []
+		
+		guard let data = interface.fileManager.readFromFileInApplicationDirectory (filename)
+			else {
+				print ("Unable to read from file. Terminating...")
+				return
+		}
+		
+		guard let string = String (data: data, encoding: NSUTF8StringEncoding)
+			else {
+				print ("Have not been able to transform the data to string. This is strange...")
+				return
+		}
+		
+		do {
+			try output = interface.translator.translate(string)
+		} catch {
+			print ("Unable to recognise language, please refer to simple stack language guide for clues.")
+			return
+		}
+		
+		do {
+			try interface.processor.process(output)
+		} catch {
+			print ("Some troubles with your code, cannot process it. Terminating...")
+		}
+	}
+	
+	class func parseFileBackwards (filename: String) {
 		
 		let interface = sharedInstance
 		

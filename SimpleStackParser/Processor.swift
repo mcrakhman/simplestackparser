@@ -19,6 +19,8 @@ class Processor {
 	
 	func process (bytes: [Byte]) throws {
 		
+		print ("Yo, I am starting, let's see and your answer is...")
+		
 		bytesInput	= bytes
 		var index	= 0
 		
@@ -35,7 +37,16 @@ class Processor {
 		switch command {
 			
 		case ProcessorCommands.Push.code:
-			let byteRepresentation	= Array (bytesInput [index + 1..<index + sizeof(Value) + 1])
+			
+			let startIndex	= index + 1
+			let endIndex	= startIndex + sizeof (Value)
+			
+			guard endIndex < bytesInput.count
+				else {
+					throw ProcessorError.InvalidOperation
+			}
+			
+			let byteRepresentation	= Array (bytesInput [startIndex..<endIndex])
 			let value				= convertByteArrayToValue (byteRepresentation)
 			
 			push (value)
@@ -43,7 +54,7 @@ class Processor {
 			return sizeof(Value) + 1
 			
 		case ProcessorCommands.Pop.code:
-			try popAndPrint ()
+			try pop ()
 			
 			return 1
 			
@@ -109,6 +120,9 @@ class Processor {
 	func pop () throws -> Value {
 	
 		if let value = stack.pop () {
+		
+			print ("Let's pop that thing: \(value)")
+
 			return value
 		} else {
 			throw ProcessorError.InvalidOperation
