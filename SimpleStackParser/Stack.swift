@@ -41,7 +41,7 @@ class Stack <T> {
 	
 	func push (element: T) {
 		let newNode			= Node<T> (element: element)
-		print (element)
+	
 		newNode.nextNode	= node
 		
 		node = newNode

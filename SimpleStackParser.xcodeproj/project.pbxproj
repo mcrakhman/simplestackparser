@@ -13,6 +13,9 @@
 		96EA26B81C91E1D800F4E3CD /* ByteConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */; };
 		96EA26BA1C91E21800F4E3CD /* BackwardTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */; };
 		96EA26C21C91E28100F4E3CD /* Processor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26C11C91E28100F4E3CD /* Processor.swift */; };
+		96EA26C41C91F97D00F4E3CD /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26C31C91F97D00F4E3CD /* FileManager.swift */; };
+		96EA26C61C92018500F4E3CD /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26C51C92018500F4E3CD /* Interface.swift */; };
+		96EA26C81C920B3200F4E3CD /* ProcessorCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26C71C920B3200F4E3CD /* ProcessorCommands.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +38,9 @@
 		96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteConverters.swift; sourceTree = "<group>"; };
 		96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackwardTranslator.swift; sourceTree = "<group>"; };
 		96EA26C11C91E28100F4E3CD /* Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
+		96EA26C31C91F97D00F4E3CD /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		96EA26C51C92018500F4E3CD /* Interface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
+		96EA26C71C920B3200F4E3CD /* ProcessorCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessorCommands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 			children = (
 				96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */,
 				96EA26B51C91E1A600F4E3CD /* Translator.swift */,
+				96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */,
 			);
 			name = Translators;
 			sourceTree = "<group>";
@@ -88,7 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				96EA26AC1C91E13500F4E3CD /* main.swift */,
-				96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */,
+				96EA26C31C91F97D00F4E3CD /* FileManager.swift */,
+				96EA26C51C92018500F4E3CD /* Interface.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -105,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				96EA26C11C91E28100F4E3CD /* Processor.swift */,
+				96EA26C71C920B3200F4E3CD /* ProcessorCommands.swift */,
 			);
 			name = Processor;
 			sourceTree = "<group>";
@@ -166,11 +175,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96EA26C81C920B3200F4E3CD /* ProcessorCommands.swift in Sources */,
 				96EA26C21C91E28100F4E3CD /* Processor.swift in Sources */,
 				96EA26B41C91E16200F4E3CD /* Stack.swift in Sources */,
 				96EA26B61C91E1A600F4E3CD /* Translator.swift in Sources */,
+				96EA26C61C92018500F4E3CD /* Interface.swift in Sources */,
 				96EA26B81C91E1D800F4E3CD /* ByteConverters.swift in Sources */,
 				96EA26AD1C91E13500F4E3CD /* main.swift in Sources */,
+				96EA26C41C91F97D00F4E3CD /* FileManager.swift in Sources */,
 				96EA26BA1C91E21800F4E3CD /* BackwardTranslator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

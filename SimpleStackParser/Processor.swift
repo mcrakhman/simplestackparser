@@ -43,7 +43,7 @@ class Processor {
 			return sizeof(Value) + 1
 			
 		case ProcessorCommands.Pop.code:
-			try pop ()
+			try popAndPrint ()
 			
 			return 1
 			
@@ -107,13 +107,16 @@ class Processor {
 	}
 	
 	func pop () throws -> Value {
+	
 		if let value = stack.pop () {
-			print (value)
-			
 			return value
 		} else {
 			throw ProcessorError.InvalidOperation
 		}
+	}
+	
+	func popAndPrint () throws {
+		print (try pop ())
 	}
 	
 }
