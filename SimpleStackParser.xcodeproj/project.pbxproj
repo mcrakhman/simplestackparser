@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		96EA26AD1C91E13500F4E3CD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26AC1C91E13500F4E3CD /* main.swift */; };
+		96EA26B41C91E16200F4E3CD /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B31C91E16200F4E3CD /* Stack.swift */; };
+		96EA26B61C91E1A600F4E3CD /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B51C91E1A600F4E3CD /* Translator.swift */; };
+		96EA26B81C91E1D800F4E3CD /* ByteConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */; };
+		96EA26BA1C91E21800F4E3CD /* BackwardTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */; };
+		96EA26C21C91E28100F4E3CD /* Processor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26C11C91E28100F4E3CD /* Processor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +30,11 @@
 /* Begin PBXFileReference section */
 		96EA26A91C91E13500F4E3CD /* SimpleStackParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleStackParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		96EA26AC1C91E13500F4E3CD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		96EA26B31C91E16200F4E3CD /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		96EA26B51C91E1A600F4E3CD /* Translator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translator.swift; sourceTree = "<group>"; };
+		96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteConverters.swift; sourceTree = "<group>"; };
+		96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackwardTranslator.swift; sourceTree = "<group>"; };
+		96EA26C11C91E28100F4E3CD /* Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +67,46 @@
 		96EA26AB1C91E13500F4E3CD /* SimpleStackParser */ = {
 			isa = PBXGroup;
 			children = (
-				96EA26AC1C91E13500F4E3CD /* main.swift */,
+				96EA26C01C91E27100F4E3CD /* Processor */,
+				96EA26BB1C91E22100F4E3CD /* Translators */,
+				96EA26BF1C91E26000F4E3CD /* Stack */,
+				96EA26BE1C91E24E00F4E3CD /* General */,
 			);
 			path = SimpleStackParser;
+			sourceTree = "<group>";
+		};
+		96EA26BB1C91E22100F4E3CD /* Translators */ = {
+			isa = PBXGroup;
+			children = (
+				96EA26B91C91E21800F4E3CD /* BackwardTranslator.swift */,
+				96EA26B51C91E1A600F4E3CD /* Translator.swift */,
+			);
+			name = Translators;
+			sourceTree = "<group>";
+		};
+		96EA26BE1C91E24E00F4E3CD /* General */ = {
+			isa = PBXGroup;
+			children = (
+				96EA26AC1C91E13500F4E3CD /* main.swift */,
+				96EA26B71C91E1D800F4E3CD /* ByteConverters.swift */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		96EA26BF1C91E26000F4E3CD /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				96EA26B31C91E16200F4E3CD /* Stack.swift */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
+		96EA26C01C91E27100F4E3CD /* Processor */ = {
+			isa = PBXGroup;
+			children = (
+				96EA26C11C91E28100F4E3CD /* Processor.swift */,
+			);
+			name = Processor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96EA26C21C91E28100F4E3CD /* Processor.swift in Sources */,
+				96EA26B41C91E16200F4E3CD /* Stack.swift in Sources */,
+				96EA26B61C91E1A600F4E3CD /* Translator.swift in Sources */,
+				96EA26B81C91E1D800F4E3CD /* ByteConverters.swift in Sources */,
 				96EA26AD1C91E13500F4E3CD /* main.swift in Sources */,
+				96EA26BA1C91E21800F4E3CD /* BackwardTranslator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
