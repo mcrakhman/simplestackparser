@@ -125,6 +125,27 @@ class Interface {
 		interface.fileManager.createFileWithStringInApplicationDirectory(string, filename: filename + ".backwards")
 	}
 	
+	class func testRunFromString (string: String) {
+		
+		let interface = sharedInstance
+		
+		var output: [Byte] = []
+		
+		do {
+			try output = interface.translator.translate(string)
+		} catch {
+			print ("Unable to recognise language, please refer to simple stack language guide for clues.")
+			return
+		}
+		
+		do {
+			try interface.processor.process(output)
+		} catch {
+			print ("Some troubles with your code, cannot process it. Terminating...")
+		}
+		
+	}
+	
 	func convertNSDataToByte (data: NSData) -> [Byte] {
 		
 		let buffer = UnsafeBufferPointer (start: UnsafePointer<Byte> (data.bytes), count: data.length)

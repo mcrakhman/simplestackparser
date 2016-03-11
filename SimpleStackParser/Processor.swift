@@ -92,14 +92,22 @@ class Processor {
 		let firstValue	= try pop ()
 		let secondValue	= try pop ()
 		
-		stack.push (firstValue + secondValue)
+		let value = firstValue + secondValue
+		
+		print ("Let's add that thing: \(value)")
+		
+		stack.push (value)
 	}
 	
 	func sub () throws {
 		let firstValue	= try pop ()
 		let secondValue	= try pop ()
 		
-		stack.push (firstValue - secondValue)
+		let value = firstValue - secondValue
+		
+		print ("Let's sub that thing: \(value)")
+		
+		stack.push (value)
 	}
 	
 	func mul () throws {
@@ -107,14 +115,27 @@ class Processor {
 		let firstValue	= try pop ()
 		let secondValue	= try pop ()
 		
-		stack.push (firstValue * secondValue)
+		let value = firstValue * secondValue
+		
+		print ("Let's mul that thing: \(value)")
+		
+		stack.push (value)
 	}
 	
 	func div () throws {
 		let firstValue	= try pop ()
 		let secondValue	= try pop ()
 		
-		stack.push (firstValue / secondValue)
+		guard secondValue != 0
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		let value = firstValue / secondValue
+		
+		print ("Let's div that thing: \(value)")
+		
+		stack.push (value)
 	}
 	
 	func pop () throws -> Value {
