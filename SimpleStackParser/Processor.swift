@@ -19,7 +19,7 @@ class Processor {
 	
 	func process (bytes: [Byte]) throws {
 		
-		print ("Yo, I am starting, let's see and your answer is...")
+		print ("Yo, I am starting, let's see and... your answer is...")
 		
 		bytesInput	= bytes
 		var index	= 0
