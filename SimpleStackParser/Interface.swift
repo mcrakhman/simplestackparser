@@ -10,13 +10,13 @@ import Foundation
 
 class Interface {
 	
-	static let sharedInstance	= Interface		()
+	static let sharedInstance = Interface ()
 	
-	let translator				= Translator	()
-	let processor				= Processor		()
-	let backwardsTranslator		= BackwardsTranslator ()
+	let translator = Translator ()
+	let processor = Processor ()
+	let backwardsTranslator	= BackwardsTranslator ()
 	
-	let fileManager				= SimpleStackParserFileManager ()
+	let fileManager	= SimpleStackParserFileManager ()
 	
 	class func createFileWithFilenameAndString (string: String, filename: String) {
 		

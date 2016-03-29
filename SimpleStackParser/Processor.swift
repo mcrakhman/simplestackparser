@@ -15,14 +15,14 @@ enum ProcessorError: ErrorType {
 class Processor {
 	
 	let stack: Stack<Value> = Stack <Value> ()
-	var bytesInput: [Byte]	= []
+	var bytesInput: [Byte] = []
 	
 	func process (bytes: [Byte]) throws {
 		
 		print ("Yo, I am starting, let's see and... your answer is...")
 		
-		bytesInput	= bytes
-		var index	= 0
+		bytesInput = bytes
+		var index = 0
 		
 		while index < bytesInput.count {
 			index += try processCommandAtIndexAndMove (index)
@@ -38,8 +38,8 @@ class Processor {
 			
 		case ProcessorCommands.Push.code:
 			
-			let startIndex	= index + 1
-			let endIndex	= startIndex + sizeof (Value)
+			let startIndex = index + 1
+			let endIndex = startIndex + sizeof (Value)
 			
 			guard endIndex < bytesInput.count
 				else {
@@ -47,7 +47,7 @@ class Processor {
 			}
 			
 			let byteRepresentation	= Array (bytesInput [startIndex..<endIndex])
-			let value				= convertByteArrayToValue (byteRepresentation)
+			let value = convertByteArrayToValue (byteRepresentation)
 			
 			push (value)
 			
@@ -89,7 +89,7 @@ class Processor {
 	
 	func add () throws {
 		
-		let firstValue	= try pop ()
+		let firstValue = try pop ()
 		let secondValue	= try pop ()
 		
 		let value = firstValue + secondValue
@@ -112,7 +112,7 @@ class Processor {
 	
 	func mul () throws {
 		
-		let firstValue	= try pop ()
+		let firstValue = try pop ()
 		let secondValue	= try pop ()
 		
 		let value = firstValue * secondValue
@@ -123,7 +123,7 @@ class Processor {
 	}
 	
 	func div () throws {
-		let firstValue	= try pop ()
+		let firstValue = try pop ()
 		let secondValue	= try pop ()
 		
 		guard secondValue != 0

@@ -24,12 +24,12 @@ class BackwardsTranslator {
 		var index = 0
 		while index < bytesArray.count {
 			if try parseCommandAndAddToOutput (bytesArray [index]) == RequiresValue.No {
-				index++
+				index += 1
 			} else {
-				index++
+				index += 1
 				
 				let startIndex	= index
-				let endIndex	= startIndex + sizeof (Value)
+				let endIndex = startIndex + sizeof (Value)
 				
 				guard endIndex < bytesArray.count
 					else {
@@ -77,7 +77,7 @@ class BackwardsTranslator {
 	}
 	
 	func parseValueFromBytesAndAddToOutput (byteRepresentation: [Byte]) {
-		let value			= convertByteArrayToValue(byteRepresentation)
+		let value	= convertByteArrayToValue(byteRepresentation)
 		let stringFromValue = String (value)
 		
 		stringOutput += stringFromValue + " "

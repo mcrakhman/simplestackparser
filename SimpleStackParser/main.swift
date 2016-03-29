@@ -9,11 +9,11 @@
 import Foundation
 
 enum Arguments: String {
-	case Parse			= "parse"
-	case Run			= "run"
-	case ParseRun		= "parserun"
+	case Parse	= "parse"
+	case Run = "run"
+	case ParseRun = "parserun"
 	case ParseBackwards = "backwards"
-	case TestRun		= "testrun"
+	case TestRun = "testrun"
 }
 
 func start () {
@@ -46,11 +46,11 @@ func start () {
 			case .Parse:
 				Interface.parseLanguageFileAndCreateRunFile (Process.arguments [2])
 			case .Run:
-				Interface.runFromFile						(Process.arguments [2])
+				Interface.runFromFile (Process.arguments [2])
 			case .ParseRun:
-				Interface.parseRunFromFile					(Process.arguments [2])
+				Interface.parseRunFromFile (Process.arguments [2])
 			case .ParseBackwards:
-				Interface.parseFileBackwards				(Process.arguments [2])
+				Interface.parseFileBackwards (Process.arguments [2])
 			case .TestRun:
 				
 				guard Process.arguments.count > 3
@@ -59,8 +59,8 @@ func start () {
 						return
 				}
 				
-				let endArguments	= Array (Process.arguments [2..<Process.arguments.count])
-				let jointString		= endArguments.joinWithSeparator(" ")
+				let endArguments = Array (Process.arguments [2..<Process.arguments.count])
+				let jointString	 = endArguments.joinWithSeparator(" ")
 				
 				Interface.testRunFromString (jointString)
 		}

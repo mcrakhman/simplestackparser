@@ -14,7 +14,6 @@ class Node <T> {
 	var nextNode: Node<T>?
 	
 	init () {
-		
 	}
 	
 	init (element: T) {
@@ -30,7 +29,7 @@ class Stack <T> {
 		if node != nil {
 			
 			let element = node?.element
-			node		= node?.nextNode
+			node = node?.nextNode
 			
 			return element
 			
@@ -40,9 +39,9 @@ class Stack <T> {
 	}
 	
 	func push (element: T) {
-		let newNode			= Node<T> (element: element)
+		let newNode	= Node<T> (element: element)
 	
-		newNode.nextNode	= node
+		newNode.nextNode = node
 		
 		node = newNode
 	}
@@ -53,7 +52,6 @@ class Stack <T> {
 		runningNode = node
 		
 		while runningNode != nil {
-			
 			runningNode = runningNode?.nextNode
 		}
 		

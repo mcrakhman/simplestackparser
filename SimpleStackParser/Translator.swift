@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 enum TranslatorError : ErrorType {
 	case InvalidData
 }

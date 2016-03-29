@@ -9,12 +9,12 @@
 import Foundation
 
 enum ProcessorCommands: String {
-	case Push	= "push"
-	case Pop	= "pop"
-	case Add	= "add"
-	case Mul	= "mul"
-	case Div	= "div"
-	case Sub	= "sub"
+	case Push = "push"
+	case Pop = "pop"
+	case Add = "add"
+	case Mul = "mul"
+	case Div = "div"
+	case Sub = "sub"
 	
 	var code: Byte {
 		switch self {
