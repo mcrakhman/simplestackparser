@@ -9,25 +9,25 @@
 import Foundation
 
 typealias Byte	= UInt8
+typealias TwoByte = UInt16
 typealias Value = Float
 
-func convertValueToByteArray (_value: Value) -> [Byte] {
+func convertValueToByteArray <T> (_value: T) -> [Byte] {
 	
 	var value = _value
 	
 	return withUnsafePointer(&value) { pointer in
 		
-		let buffer = UnsafeBufferPointer (start: UnsafePointer<Byte> (pointer), count: sizeof(Value))
-		
+		let buffer = UnsafeBufferPointer (start: UnsafePointer<Byte> (pointer), count: sizeof(T))
 		return Array (buffer)
 	}
 }
 
-func convertByteArrayToValue (byteArray: [Byte]) -> Value {
+func convertByteArrayToValue <T> (byteArray: [Byte]) -> T {
 	
 	return byteArray.withUnsafeBufferPointer { pointer in
 		
-		let	value = UnsafePointer <Value> (pointer.baseAddress).memory
+		let	value = UnsafePointer <T> (pointer.baseAddress).memory
 		return	value
 	}
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		966A7B351CBC458D00EA3FC0 /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A7B341CBC458D00EA3FC0 /* Variables.swift */; };
+		966A7B371CBCF02E00EA3FC0 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A7B361CBCF02E00EA3FC0 /* Labels.swift */; };
 		96EA26AD1C91E13500F4E3CD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26AC1C91E13500F4E3CD /* main.swift */; };
 		96EA26B41C91E16200F4E3CD /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B31C91E16200F4E3CD /* Stack.swift */; };
 		96EA26B61C91E1A600F4E3CD /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26B51C91E1A600F4E3CD /* Translator.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		966A7B341CBC458D00EA3FC0 /* Variables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
+		966A7B361CBCF02E00EA3FC0 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		96EA26A91C91E13500F4E3CD /* SimpleStackParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleStackParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		96EA26AC1C91E13500F4E3CD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		96EA26B31C91E16200F4E3CD /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 			children = (
 				96EA26C11C91E28100F4E3CD /* Processor.swift */,
 				96EA26C71C920B3200F4E3CD /* ProcessorCommands.swift */,
+				966A7B341CBC458D00EA3FC0 /* Variables.swift */,
+				966A7B361CBCF02E00EA3FC0 /* Labels.swift */,
 			);
 			name = Processor;
 			sourceTree = "<group>";
@@ -184,6 +190,8 @@
 				96EA26AD1C91E13500F4E3CD /* main.swift in Sources */,
 				96EA26C41C91F97D00F4E3CD /* FileManager.swift in Sources */,
 				96EA26BA1C91E21800F4E3CD /* BackwardTranslator.swift in Sources */,
+				966A7B351CBC458D00EA3FC0 /* Variables.swift in Sources */,
+				966A7B371CBCF02E00EA3FC0 /* Labels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +311,7 @@
 				96EA26B21C91E13500F4E3CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
