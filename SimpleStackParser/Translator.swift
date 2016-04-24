@@ -17,6 +17,7 @@ class Translator {
 	var bytesOutput: [Byte] = []
 	var lastCommand: ProcessorCommands?
 	var labelDictionary: LabelDictionary = [:]
+	var variableRAMNamesArray: [String] = []
 	
 	func translate (string: String) throws -> [Byte] {
 		
@@ -43,21 +44,31 @@ class Translator {
 			try analyzeString (selectedString)
 		}
 		
-		if !labelDictionary.isEmpty {
-			throw TranslatorError.InvalidData
-		}
-		
 		return bytesOutput
 	}
 	
 	func analyzeString (string: String) throws {
 		
-		if let command = lastCommand where isJump (command) {
-			try analyzeLabelAfterJump (string)
+		if let command = lastCommand {
 			
-			lastCommand = nil
-			
-			return
+			if isJumpOrCall(command) {
+				try analyzeLabelAfterJump (string)
+				lastCommand = nil
+				
+				return
+			}
+			if (command == .Push || command == .Pop) && isVariableRAM (string) {
+				try analyzeVariableRAMAfterPushPop (string)
+				lastCommand = nil
+				
+				return
+			}
+			if command == .RegisterVariable {
+				try analyzeVariableRAMAfterReg (string)
+				lastCommand = nil
+				
+				return
+			}
 		}
 		
 		if let number = Value (string) {
@@ -82,14 +93,49 @@ class Translator {
 				throw TranslatorError.InvalidData
 			}
 		}
-		
-		
 	}
 	
 	func analyzeProcessorCommand (command: ProcessorCommands) {
 		lastCommand = command
 	
 		bytesOutput.append (command.code)
+	}
+	
+	func analyzeVariableRAMAfterPushPop (string: String) throws {
+		
+		guard let indexOfVariable = variableRAMNamesArray.indexOf (string),
+				let command = lastCommand
+			else {
+				throw TranslatorError.InvalidData
+		}
+		
+		let byteIndex = Byte (indexOfVariable)
+		bytesOutput.removeAtIndex (bytesOutput.count - 1)
+		
+		switch command {
+		case .Push:
+			bytesOutput.append (ProcessorCommandsBackwards.PushVariable.rawValue)
+		case .Pop:
+			bytesOutput.append (ProcessorCommandsBackwards.PopVariable.rawValue)
+		default:
+			throw TranslatorError.InvalidData
+		}
+		
+		bytesOutput.append (byteIndex)
+		
+	}
+	
+	func analyzeVariableRAMAfterReg (string: String) throws {
+		
+		guard !variableRAMNamesArray.contains (string)
+			else {
+				throw TranslatorError.InvalidData
+		}
+		
+		variableRAMNamesArray.append (string)
+		
+		let byteIndex = Byte (variableRAMNamesArray.count - 1)
+		bytesOutput.append (byteIndex)
 	}
 	
 	func analyzeVariable (variable: Variables) throws {
@@ -122,24 +168,29 @@ class Translator {
 	
 	func analyzeLabelAfterJump (label: String) throws {
 		
-		if let tuple = labelDictionary [label] {
+		if let tuple = labelDictionary [label] where tuple.1 != nil {
 			
 			if let byteWhenLabelOccured = tuple.1 {
 		
 				let byteArrayConverted = convertValueToByteArray (byteWhenLabelOccured)
 				bytesOutput.appendContentsOf (byteArrayConverted)
 				
-				labelDictionary.removeValueForKey (label)
+				//labelDictionary.removeValueForKey (label)
 				
 				return
 			} else {
 				throw TranslatorError.InvalidData
 			}
 		} else {
-			// if we encountered the label for the first time
+			// if we don't know the label's position
 			let currentPosition = bytesOutput.count
 			
-			labelDictionary [label] = (currentPosition, nil)
+			if labelDictionary [label]?.0 == nil {
+				labelDictionary [label] = ([currentPosition], nil)
+			} else {
+				labelDictionary [label]?.0?.append (currentPosition)
+			}
+			
 			// reserve two bytes to change them when the label will be found
 			bytesOutput.appendContentsOf ([0, 0])
 		}
@@ -151,14 +202,16 @@ class Translator {
 		
 		if let tuple = labelDictionary [labelRemovedColon] {
 			
-			if let byteWhenJumpCommandOccured = tuple.0 {
+			if let bytesWhenJumpCommandOccured = tuple.0 {
 				let currentPosition = TwoByte (bytesOutput.count)
 				let byteArrayConverted = convertValueToByteArray (currentPosition)
 				
-				bytesOutput [byteWhenJumpCommandOccured] = byteArrayConverted [0]
-				bytesOutput [byteWhenJumpCommandOccured + 1] = byteArrayConverted [1]
+				for byte in bytesWhenJumpCommandOccured {
+					bytesOutput [byte] = byteArrayConverted [0]
+					bytesOutput [byte + 1] = byteArrayConverted [1]
+				}
 				
-				labelDictionary.removeValueForKey (labelRemovedColon)
+				//labelDictionary.removeValueForKey (labelRemovedColon)
 				
 				return
 			} else {
@@ -171,9 +224,13 @@ class Translator {
 		}
 	}
 
-	func isJump (command: ProcessorCommands) -> Bool {
+	func isJumpOrCall (command: ProcessorCommands) -> Bool {
 		
-		return command.code >= 15 && command.code <= 25
+		return command.code >= 15 && command.code <= 26
+	}
+	
+	func isVariableRAM (string: String) -> Bool {
+		return variableRAMNamesArray.contains (string)
 	}
 
 	func isLabel (string: String) -> Bool {

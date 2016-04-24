@@ -22,6 +22,7 @@ class BackwardsTranslator {
 		case No
 		case Value
 		case Label
+		case VariableRAM
 	}
 	
 	func translate (bytesArray: [Byte]) throws -> String {
@@ -50,6 +51,10 @@ class BackwardsTranslator {
 			case .Label:
 				try parseLabelAndAddToOutput (index)
 				index += sizeof (TwoByte)
+			
+			case .VariableRAM:
+				try parseVariableRAMAndAddToOutput (index)
+				index += sizeof (Byte)
 			}
 		}
 		
@@ -79,8 +84,12 @@ class BackwardsTranslator {
 			return .Value
 		}
 		
-		if isJump (backwardsCommand) {
+		if isJumpOrCall (backwardsCommand) {
 			return .Label
+		}
+		
+		if backwardsCommand == .PushVariable || backwardsCommand == .PopVariable || backwardsCommand == .RegisterVariable {
+			return .VariableRAM
 		}
 		
 		return .No
@@ -98,7 +107,15 @@ class BackwardsTranslator {
 		let byteRepresentation = Array (bytesArray [startIndex..<endIndex])
 		let bytePosition: TwoByte = convertByteArrayToValue (byteRepresentation)
 		
-		let labelName = String (currentLabelNumber)
+		var labelName: String
+		
+		if let oldLabelName = labelBytePosition.anyKeyFor (bytePosition) {
+			labelName = oldLabelName
+		} else {
+			labelName = "label" + String (currentLabelNumber)
+			
+			currentLabelNumber += 1
+		}
 		
 		if let i = commandNoForBytePosition (bytePosition) {
 			output.insert ((":" + labelName, nil), atIndex: i)
@@ -107,9 +124,6 @@ class BackwardsTranslator {
 		}
 		
 		output.append ((labelName, TwoByte (index)))
-		
-		currentLabelNumber += 1
-		
 	}
 	
 	func commandNoForBytePosition (bytePosition: TwoByte) -> Int? {
@@ -140,6 +154,17 @@ class BackwardsTranslator {
 		output.append ((stringFromValue, TwoByte (index)))
 	}
 	
+	func parseVariableRAMAndAddToOutput (index: Int) throws {
+		
+		guard index < bytesArray.count
+			else {
+				throw TranslatorError.InvalidData
+		}
+		
+		let stringFromValue = "var" + String (bytesArray [index])
+		output.append ((stringFromValue, TwoByte (index)))
+	}
+	
 	func checkForLabelAtIndexAndAddToOutput (index: Int) {
 		for keyValuePair in labelBytePosition {
 			if keyValuePair.1 == TwoByte (index) {
@@ -147,14 +172,14 @@ class BackwardsTranslator {
 				let labelName = keyValuePair.0
 				output.append ((":" + labelName, nil))
 				
-				labelBytePosition.removeValueForKey (labelName)
+//				labelBytePosition.removeValueForKey (labelName)
 			}
 		}
 	}
 	
-	func isJump (command: ProcessorCommandsBackwards) -> Bool {
+	func isJumpOrCall (command: ProcessorCommandsBackwards) -> Bool {
 		
-		return command.rawValue >= 15 && command.rawValue <= 25
+		return command.rawValue >= 15 && command.rawValue <= 26
 	}
 }
 

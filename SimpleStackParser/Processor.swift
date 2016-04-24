@@ -15,7 +15,10 @@ enum ProcessorError: ErrorType {
 class Processor {
 	
 	let stack: Stack<Value> = Stack <Value> ()
+	let functionStack = Stack <Int> ()
+	
 	var bytesInput: [Byte] = []
+	var variablesRAM: [Byte: Value] = [:]
 	
 	var ax: Value = 0
 	var bx: Value = 0
@@ -29,7 +32,7 @@ class Processor {
 		bytesInput = bytes
 		var index = 0
 		
-		while index < bytesInput.count {
+		while index < bytesInput.count && index != -1 {
 			index = try processCommandAtIndexAndMove (index)
 		}
 		
@@ -40,6 +43,12 @@ class Processor {
 		let command = bytesInput [index]
 		
 		switch command {
+		
+		case ProcessorCommands.Call.code:
+			return try call (index)
+		
+		case ProcessorCommands.Return.code:
+			return try ret (index)
 		
 		case ProcessorCommands.Jump.code:
 			return try jump (index) 
@@ -73,6 +82,15 @@ class Processor {
 			
 		case ProcessorCommands.JumpIfBelowOrEqual.code:
 			return try jump (index, condition: <=)
+		
+		case ProcessorCommandsBackwards.RegisterVariable.rawValue:
+			return try registerVariableRAM (index)
+		
+		case ProcessorCommandsBackwards.PushVariable.rawValue:
+			return try pushVariableRAM (index)
+			
+		case ProcessorCommandsBackwards.PopVariable.rawValue:
+			return try popVariableRAM (index)
 			
 		case ProcessorCommands.PushAx.code:
 			push (ax)
@@ -142,10 +160,34 @@ class Processor {
 			try sqr ()
 			
 			return index + 1
+		
+		case ProcessorCommands.Print.code:
+			try popPrintAndPush()
+			
+			return index + 1
+			
+		case ProcessorCommands.End.code:
+			return -1
 			
 		default:
 			throw ProcessorError.InvalidOperation
 		}
+	}
+	
+	func call (index: Int) throws -> Int {
+		
+		functionStack.push (index + sizeof (TwoByte) + 1)
+		return try jump (index)
+	}
+	
+	func ret (index: Int) throws -> Int {
+		
+		guard let returnIndex = functionStack.pop ()
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		return returnIndex
 	}
 	
 	func jump (index: Int, condition: ((Value, Value) -> Bool)? = nil) throws -> Int {
@@ -182,14 +224,65 @@ class Processor {
 		return value
 	}
 	
+	func registerVariableRAM (index: Int) throws -> Int {
+		
+		guard index + 1 < bytesInput.count
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		let variableIndex = bytesInput [index + 1]
+		
+		variablesRAM [variableIndex] = 0
+		
+		return index + 1 + sizeof (Byte)
+	}
+	
+	func pushVariableRAM (index: Int) throws -> Int {
+		
+		guard index + 1 < bytesInput.count
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		let variableIndex = bytesInput [index + 1]
+		
+		guard let variableValue = variablesRAM [variableIndex]
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		push (variableValue)
+		
+		return index + 1 + sizeof (Byte)
+	}
+	
+	func popVariableRAM (index: Int) throws -> Int {
+		
+		guard index + 1 < bytesInput.count
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		let variableIndex = bytesInput [index + 1]
+		
+		guard var variableValue = variablesRAM [variableIndex]
+			else {
+				throw ProcessorError.InvalidOperation
+		}
+		
+		variableValue = try pop ()
+		variablesRAM [variableIndex] = variableValue
+		
+		return index + 1 + sizeof (Byte)
+	}
+	
 	func push (value: Value) {
 		stack.push (value)
 	}
 	
 	func sqr () throws {
 		let value = sqrt (try pop ())
-		
-		print ("Let's sqrt that thing: \(value)")
 		
 		stack.push (value)
 	}
@@ -201,8 +294,6 @@ class Processor {
 		
 		let value = firstValue + secondValue
 		
-		print ("Let's add that thing: \(value)")
-		
 		stack.push (value)
 	}
 	
@@ -211,8 +302,6 @@ class Processor {
 		let secondValue	= try pop ()
 		
 		let value = firstValue - secondValue
-		
-		print ("Let's sub that thing: \(value)")
 		
 		stack.push (value)
 	}
@@ -223,8 +312,6 @@ class Processor {
 		let secondValue	= try pop ()
 		
 		let value = firstValue * secondValue
-		
-		print ("Let's mul that thing: \(value)")
 		
 		stack.push (value)
 	}
@@ -240,25 +327,23 @@ class Processor {
 		
 		let value = firstValue / secondValue
 		
-		print ("Let's div that thing: \(value)")
-		
 		stack.push (value)
 	}
 	
 	func pop () throws -> Value {
 	
 		if let value = stack.pop () {
-		
-			print ("Let's pop that thing: \(value)")
-
 			return value
 		} else {
 			throw ProcessorError.InvalidOperation
 		}
 	}
 	
-	func popAndPrint () throws {
-		print (try pop ())
+	func popPrintAndPush () throws {
+		let value = try pop ()
+		print (value)
+		
+		push (value)
 	}
 	
 }

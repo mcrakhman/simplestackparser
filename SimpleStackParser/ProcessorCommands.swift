@@ -34,7 +34,12 @@ enum ProcessorCommands: String {
 	case JumpIfNotEqual = "jne"
 	case JumpIfNotAboveOrEqual = "jnae"
 	case JumpIfNotBelowOrEqual = "jnbe"
+	case Call = "call"
+	case Return = "ret"
+	case RegisterVariable = "reg"
 	case SquareRoot = "sqr"
+	case End = "end"
+	case Print = "print"
 	
 	var code: Byte {
 		switch self {
@@ -88,8 +93,18 @@ enum ProcessorCommands: String {
 			return 24
 		case .JumpIfNotBelowOrEqual:
 			return 25
-		case .SquareRoot:
+		case .Call:
 			return 26
+		case .Return:
+			return 27
+		case .RegisterVariable:
+			return 28
+		case .SquareRoot:
+			return 29
+		case .End:
+			return 32
+		case .Print:
+			return 33
 		}
 	}
 }
@@ -120,7 +135,14 @@ enum ProcessorCommandsBackwards: Byte {
 	case JumpIfNotEqual = 23
 	case JumpIfNotAboveOrEqual = 24
 	case JumpIfNotBelowOrEqual = 25
-	case SquareRoot = 26
+	case Call = 26
+	case Return = 27
+	case RegisterVariable = 28
+	case SquareRoot = 29
+	case PushVariable = 30
+	case PopVariable = 31
+	case End = 32
+	case Print = 33
 	
 	var code: String {
 		switch self {
@@ -176,6 +198,20 @@ enum ProcessorCommandsBackwards: Byte {
 			return "jnbe"
 		case .SquareRoot:
 			return "sqr"
+		case .Call:
+			return "call"
+		case .Return:
+			return "ret"
+		case .RegisterVariable:
+			return "reg"
+		case .PushVariable:
+			return "push"
+		case .PopVariable:
+			return "pop"
+		case .End:
+			return "end"
+		case .Print:
+			return "print"
 		}
 	}
 }

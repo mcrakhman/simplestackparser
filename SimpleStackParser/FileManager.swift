@@ -32,4 +32,8 @@ class SimpleStackParserFileManager {
 		return fileManager.contentsAtPath (path)
 	}
 	
+	func readFromFileInAnyDirectoryWithPath (path: String) -> NSData? {
+		return fileManager.contentsAtPath (path)
+	}
+	
 }

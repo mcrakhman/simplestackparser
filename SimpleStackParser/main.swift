@@ -72,3 +72,27 @@ func start () {
 
 start ()
 
+//let fileManager = SimpleStackParserFileManager ()
+//if let data = fileManager.readFromFileInAnyDirectoryWithPath ("/Users/mikhailrakhmanov/Documents/SwiftProgramming/TutuTrainStationSearch/fib10times.txt") {
+//	if let string = String (data: data, encoding: NSUTF8StringEncoding) {
+//		Interface.testRunFromString (string)
+//	}
+//}
+//
+//
+
+//let translator = Translator ()
+//
+//let commandString = "reg first reg second reg index push 1 pop first push 1 pop second push 0 pop index :start call fib push index push 10 jb start end :fib push first push second add print push second pop first pop second push index push 1 add pop index ret"
+////"reg varA reg varB push 5 pop varA push 6 pop varB push varA push varB mul"
+//let bytesOutput = try translator.translate (commandString)
+//
+//let backwardsTranslator = BackwardsTranslator ()
+//let finalString = try backwardsTranslator.translate (bytesOutput)
+//
+//print (finalString)
+//
+//
+//let processor = Processor ()
+//try processor.process (bytesOutput)
+

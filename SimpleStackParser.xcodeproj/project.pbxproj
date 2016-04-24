@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		962F37001CCD063800DBD419 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F36FF1CCD063800DBD419 /* DictionaryExtension.swift */; };
 		966A7B351CBC458D00EA3FC0 /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A7B341CBC458D00EA3FC0 /* Variables.swift */; };
 		966A7B371CBCF02E00EA3FC0 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A7B361CBCF02E00EA3FC0 /* Labels.swift */; };
 		96EA26AD1C91E13500F4E3CD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA26AC1C91E13500F4E3CD /* main.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		962F36FF1CCD063800DBD419 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		966A7B341CBC458D00EA3FC0 /* Variables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		966A7B361CBCF02E00EA3FC0 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		96EA26A91C91E13500F4E3CD /* SimpleStackParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleStackParser; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,7 @@
 				96EA26AC1C91E13500F4E3CD /* main.swift */,
 				96EA26C31C91F97D00F4E3CD /* FileManager.swift */,
 				96EA26C51C92018500F4E3CD /* Interface.swift */,
+				962F36FF1CCD063800DBD419 /* DictionaryExtension.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				96EA26C81C920B3200F4E3CD /* ProcessorCommands.swift in Sources */,
 				96EA26C21C91E28100F4E3CD /* Processor.swift in Sources */,
 				96EA26B41C91E16200F4E3CD /* Stack.swift in Sources */,
+				962F37001CCD063800DBD419 /* DictionaryExtension.swift in Sources */,
 				96EA26B61C91E1A600F4E3CD /* Translator.swift in Sources */,
 				96EA26C61C92018500F4E3CD /* Interface.swift in Sources */,
 				96EA26B81C91E1D800F4E3CD /* ByteConverters.swift in Sources */,

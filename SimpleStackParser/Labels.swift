@@ -9,5 +9,5 @@
 import Foundation
 
 /// .0 (Int) from tuple is the number of byte when the label occured
-/// .1 (Int) - when the jmp command occured
-typealias LabelDictionary = [String: (Int?, TwoByte?)]
+/// .1 (Int) - where the jmp command occured
+typealias LabelDictionary = [String: ([Int]?, TwoByte?)]
