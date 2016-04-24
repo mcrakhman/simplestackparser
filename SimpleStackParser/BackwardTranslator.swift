@@ -109,6 +109,8 @@ class BackwardsTranslator {
 		
 		var labelName: String
 		
+		// checking whether we have already encountered the same label
+		// while parsing other call's or jumps
 		if let oldLabelName = labelBytePosition.anyKeyFor (bytePosition) {
 			labelName = oldLabelName
 		} else {
@@ -171,8 +173,7 @@ class BackwardsTranslator {
 				
 				let labelName = keyValuePair.0
 				output.append ((":" + labelName, nil))
-				
-//				labelBytePosition.removeValueForKey (labelName)
+
 			}
 		}
 	}

@@ -47,8 +47,11 @@ class Translator {
 		return bytesOutput
 	}
 	
+	// subject to refactoring
 	func analyzeString (string: String) throws {
 		
+		// need to check the below conditions before checking whether the string converts to number
+		// due to the fact that label's may also be numbers
 		if let command = lastCommand {
 			
 			if isJumpOrCall(command) {
@@ -175,8 +178,6 @@ class Translator {
 				let byteArrayConverted = convertValueToByteArray (byteWhenLabelOccured)
 				bytesOutput.appendContentsOf (byteArrayConverted)
 				
-				//labelDictionary.removeValueForKey (label)
-				
 				return
 			} else {
 				throw TranslatorError.InvalidData
@@ -185,6 +186,7 @@ class Translator {
 			// if we don't know the label's position
 			let currentPosition = bytesOutput.count
 			
+			// this checks whether we have already encountered another call's or jumps
 			if labelDictionary [label]?.0 == nil {
 				labelDictionary [label] = ([currentPosition], nil)
 			} else {
@@ -206,12 +208,11 @@ class Translator {
 				let currentPosition = TwoByte (bytesOutput.count)
 				let byteArrayConverted = convertValueToByteArray (currentPosition)
 				
+				// patching every place where there were a call or a jump command
 				for byte in bytesWhenJumpCommandOccured {
 					bytesOutput [byte] = byteArrayConverted [0]
 					bytesOutput [byte + 1] = byteArrayConverted [1]
 				}
-				
-				//labelDictionary.removeValueForKey (labelRemovedColon)
 				
 				return
 			} else {
